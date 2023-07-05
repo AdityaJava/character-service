@@ -23,7 +23,7 @@ public class CharacterController {
 
     @PostMapping("/jsonFile")
     public CharacterJsonMapper mapJsonToObject(@RequestBody CharacterJsonMapper characterJsonMapper) throws IOException {
-        return dataPersisterFromJson.persistDataToDB();
+        return dataPersisterFromJson.parseJsonFile();
     }
 
 }
