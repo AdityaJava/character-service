@@ -12,6 +12,7 @@ public class MyCharacter {
 
     @Id
     @Column(name = "character_id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long characterId;
 
     @Column(name = "character_name")
@@ -28,9 +29,6 @@ public class MyCharacter {
 
     @Column(name = "house_id")
     private Long houseId;
-
-    @Column(name = "guardedBy")
-    String guardedBy;
 
     @Column(name = "nickname")
     String nickname;

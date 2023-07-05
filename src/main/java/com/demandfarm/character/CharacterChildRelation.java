@@ -2,9 +2,7 @@ package com.demandfarm.character;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -12,6 +10,7 @@ public class CharacterChildRelation {
 
     @Id
     @Column(name = "character_child_relation__id")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long characterChildRelationId;
 
     @Column(name = "character_id")

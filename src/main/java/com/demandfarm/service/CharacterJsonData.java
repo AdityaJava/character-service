@@ -13,7 +13,7 @@ public class CharacterJsonData {
     private String characterLink;
     private String actorName;
     private String actorLink;
-    //private List<String> houseName;
+    private String houseName;
     private String royal;
     private String nickname;
     private List<String> parents;
@@ -24,5 +24,5 @@ public class CharacterJsonData {
     private List<String> marriedEngaged;
     private List<String> killed;
     private List<String> serves;
-    private List<String> guardedBy;
+    //private List<String> guardedBy;
 }
