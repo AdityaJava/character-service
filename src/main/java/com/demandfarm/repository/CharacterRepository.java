@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CharacterRepository extends JpaRepository<MyCharacter, Long> {
-    public MyCharacter findOneByCharacterName(String characterName);
+    public MyCharacter findTopByCharacterName(String characterName);
 }

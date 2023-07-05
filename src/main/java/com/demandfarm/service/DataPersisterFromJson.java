@@ -25,6 +25,7 @@ public class DataPersisterFromJson {
     private CharacterSiblingRelationRepository characterSiblingRelationRepository;
     private HouseRepository houseRepository;
     private DataPersisterUtilityService dataPersisterUtilityService;
+
     @Value("classpath:data.json")
     private
     Resource resourceFile;
@@ -73,51 +74,51 @@ public class DataPersisterFromJson {
             character = characterRepository.save(dataPersisterUtilityService.constructMyCharacter(characterJsonData.getCharacterName()));
             if (childsOfCharacter != null) {
                 for (String childOfCharacter : childsOfCharacter) {
-                    child = characterRepository.save(dataPersisterUtilityService.constructMyCharacter(childOfCharacter));
+                    child = constructMyCharacter(childOfCharacter);
                     characterChildRelationRepository.save(dataPersisterUtilityService.contructCharacterChildRelation(character, child));
                 }
             }
             if (parentsOfCharacter != null) {
                 for (String parentOfCharacter : parentsOfCharacter) {
-                    parent = characterRepository.save(dataPersisterUtilityService.constructMyCharacter(parentOfCharacter));
+                    parent = constructMyCharacter(parentOfCharacter);
                     characterChildRelationRepository.save(dataPersisterUtilityService.contructCharacterChildRelation(parent, character));
                 }
             }
 
             if (characterKilledList != null) {
                 for (String characterKilled : characterKilledList) {
-                    MyCharacter characterKilledTemp = characterRepository.save(dataPersisterUtilityService.constructMyCharacter(characterKilled));
+                    MyCharacter characterKilledTemp = constructMyCharacter(characterKilled);
                     characterKilledRelationRepository.save(dataPersisterUtilityService.contructCharacterKilledRelation(character, characterKilledTemp));
                 }
             }
             if (characterKilledByList != null) {
                 for (String characterKilledBy : characterKilledByList) {
-                    MyCharacter characterKilledByTemp = characterRepository.save(dataPersisterUtilityService.constructMyCharacter(characterKilledBy));
+                    MyCharacter characterKilledByTemp = constructMyCharacter(characterKilledBy);
                     characterKilledRelationRepository.save(dataPersisterUtilityService.contructCharacterKilledRelation(characterKilledByTemp, character));
                 }
             }
             if (characterMarriedEngagedList != null) {
                 for (String characterMarriedEngaged : characterMarriedEngagedList) {
-                    MyCharacter characterMarriedEngagedTemp = characterRepository.save(dataPersisterUtilityService.constructMyCharacter(characterMarriedEngaged));
+                    MyCharacter characterMarriedEngagedTemp = constructMyCharacter(characterMarriedEngaged);
                     characterMarriedEngagedRelationRepository.save(dataPersisterUtilityService.contructCharacterMarriedEngagedRelation(character, characterMarriedEngagedTemp));
                 }
             }
             if (characterServesList != null) {
                 for (String characterServes : characterServesList) {
-                    MyCharacter characterServesTemp = characterRepository.save(dataPersisterUtilityService.constructMyCharacter(characterServes));
+                    MyCharacter characterServesTemp = constructMyCharacter(characterServes);
                     characterServesRelationRepository.save(dataPersisterUtilityService.contructCharacterServesRelation(character, characterServesTemp));
                 }
             }
             if (characterServedByList != null) {
                 for (String characterServedBy : characterServedByList) {
-                    MyCharacter characterServedByTemp = characterRepository.save(dataPersisterUtilityService.constructMyCharacter(characterServedBy));
+                    MyCharacter characterServedByTemp = constructMyCharacter(characterServedBy);
                     characterServesRelationRepository.save(dataPersisterUtilityService.contructCharacterServesRelation(characterServedByTemp, character));
                 }
             }
 
             if (characterSiblingList != null) {
                 for (String characterSibling : characterSiblingList) {
-                    MyCharacter characterSiblingTemp = characterRepository.save(dataPersisterUtilityService.constructMyCharacter(characterSibling));
+                    MyCharacter characterSiblingTemp = constructMyCharacter(characterSibling);
                     characterSiblingRelationRepository.save(dataPersisterUtilityService.contructCharacterSiblingRelation(characterSiblingTemp, character));
                 }
             }
@@ -130,6 +131,15 @@ public class DataPersisterFromJson {
             character.setRoyal(characterJsonData.getRoyal());
             character.setNickname(characterJsonData.getNickname());
             characterRepository.save(character);
+        }
+    }
+
+    public MyCharacter constructMyCharacter(String characterName) {
+        MyCharacter character = characterRepository.findTopByCharacterName(characterName.strip());
+        if (character != null) {
+            return character;
+        } else {
+            return characterRepository.save(dataPersisterUtilityService.constructMyCharacter(characterName.strip()));
         }
     }
 
