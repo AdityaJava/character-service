@@ -123,7 +123,7 @@ public class DataPersisterFromJson {
                 }
             }
             if (characterJsonData.getHouseName() != null) {
-                House house = houseRepository.save(dataPersisterUtilityService.constructHouse(characterJsonData.getHouseName()));
+                House house = constructHouse(characterJsonData.getHouseName());
                 character.setHouseId(house.getHouseId());
             }
             character.setActorLink(characterJsonData.getActorLink());
@@ -140,6 +140,15 @@ public class DataPersisterFromJson {
             return character;
         } else {
             return characterRepository.save(dataPersisterUtilityService.constructMyCharacter(characterName.strip()));
+        }
+    }
+
+    public House constructHouse(String houseName) {
+        House house = houseRepository.findTopByHouseName(houseName);
+        if (house != null) {
+            return house;
+        } else {
+            return houseRepository.save(dataPersisterUtilityService.constructHouse(houseName.strip()));
         }
     }
 

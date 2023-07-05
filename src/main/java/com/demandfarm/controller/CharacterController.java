@@ -1,5 +1,6 @@
 package com.demandfarm.controller;
 
+import com.demandfarm.character.House;
 import com.demandfarm.character.MyCharacter;
 import com.demandfarm.service.CharacterJsonMapper;
 import com.demandfarm.service.CharacterService;
@@ -15,14 +16,25 @@ import java.util.List;
 public class CharacterController {
 
     private CharacterService characterService;
+
     @Autowired
     public CharacterController(DataPersisterFromJson dataPersisterFromJson, CharacterService characterService) {
         this.characterService = characterService;
     }
 
     @GetMapping
-    public List<MyCharacter> getCharacters(){
+    public List<MyCharacter> getCharacters() {
         return characterService.getCharacters();
+    }
+
+    @GetMapping("/houses")
+    public List<House> getHouses() {
+        return characterService.getHouses();
+    }
+
+    @GetMapping("/familytree/{houseName}")
+    public List<MyCharacter> getCharacterInHouse(@PathVariable("houseName") String houseName) {
+        return characterService.getCharactersBasedOnHouse(houseName);
     }
 
     @PostMapping("/jsonFile")
