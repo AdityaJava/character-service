@@ -1,5 +1,6 @@
 package com.demandfarm.controller;
 
+import com.demandfarm.character.FavouriteCharacter;
 import com.demandfarm.character.House;
 import com.demandfarm.character.MyCharacter;
 import com.demandfarm.service.CharacterJsonMapper;
@@ -51,5 +52,14 @@ public class CharacterController {
         characterService.persistDataFromJsonToDB();
     }
 
+    @PutMapping("/favouriteCharacter")
+    public FavouriteCharacter markCharacterAsFavourite(@RequestBody FavouriteCharacter favouriteCharacter){
+        return characterService.markAsFavouriteCharacter(favouriteCharacter);
+    }
+
+    @DeleteMapping("/favouriteCharacter/{favouriteCharacterId}")
+    public void markCharacterAsNotFavourite(@PathVariable Long favouriteCharacterId){
+         characterService.deleteFavouriteCharacter(favouriteCharacterId);
+    }
 
 }

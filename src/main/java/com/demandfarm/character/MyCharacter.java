@@ -1,6 +1,7 @@
 package com.demandfarm.character;
 
 import lombok.Data;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.List;
@@ -55,5 +56,6 @@ public class MyCharacter {
     @OneToMany(mappedBy = "characterId")
     private
     List<CharacterMarriedEngagedRelation> characterMarriedEngagedList;
+
 
 }

@@ -1,13 +1,16 @@
 package com.demandfarm.service;
 
+import com.demandfarm.character.FavouriteCharacter;
 import com.demandfarm.character.House;
 import com.demandfarm.character.MyCharacter;
 import com.demandfarm.repository.CharacterRepository;
+import com.demandfarm.repository.FavouriteCharacterRepository;
 import com.demandfarm.repository.HouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,6 +22,8 @@ public class CharacterService {
 
     private HouseRepository houseRepository;
     private DataPersisterFromJson dataPersisterFromJson;
+
+    private FavouriteCharacterRepository favouriteCharacterRepository;
 
     @Autowired
     public CharacterService(CharacterRepository characterRepository, DataPersisterFromJson dataPersisterFromJson, HouseRepository houseRepository) {
@@ -49,5 +54,17 @@ public class CharacterService {
 
     public MyCharacter getCharacter(Long id) {
         return characterRepository.findById(id).orElse(null);
+    }
+
+    public FavouriteCharacter markAsFavouriteCharacter(FavouriteCharacter favouriteCharacter) {
+        FavouriteCharacter savedFavouriteCharacter = favouriteCharacterRepository.findTopByCharacterId(favouriteCharacter.getCharacterId());
+        if(savedFavouriteCharacter != null){
+            return favouriteCharacterRepository.save(favouriteCharacter);
+        }
+        return favouriteCharacter;
+    }
+
+    public void deleteFavouriteCharacter(Long favouriteCharacterId) {
+        favouriteCharacterRepository.deleteById(favouriteCharacterId);
     }
 }
