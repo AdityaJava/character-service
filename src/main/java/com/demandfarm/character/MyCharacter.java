@@ -1,7 +1,6 @@
 package com.demandfarm.character;
 
 import lombok.Data;
-import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,7 +12,7 @@ public class MyCharacter {
 
     @Id
     @Column(name = "character_id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long characterId;
 
     @Column(name = "character_name")
@@ -37,6 +36,9 @@ public class MyCharacter {
     @Column(name = "royal")
     String royal;
 
+    @Column(name = "favourite_character")
+    Boolean favouriteCharacter;
+
     @OneToMany(mappedBy = "characterId")
     private
     List<CharacterChildRelation> characterChildList;
@@ -56,6 +58,5 @@ public class MyCharacter {
     @OneToMany(mappedBy = "characterId")
     private
     List<CharacterMarriedEngagedRelation> characterMarriedEngagedList;
-
 
 }

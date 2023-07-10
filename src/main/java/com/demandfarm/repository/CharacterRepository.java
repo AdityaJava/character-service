@@ -12,4 +12,5 @@ import java.util.List;
 public interface CharacterRepository extends JpaRepository<MyCharacter, Long>, JpaSpecificationExecutor<MyCharacter> {
     public MyCharacter findTopByCharacterName(String characterName);
     public List<MyCharacter> findByHouseId (Long houseId);
+    public  List<MyCharacter> findByFavouriteCharacter(Boolean status);
 }

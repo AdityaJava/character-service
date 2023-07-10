@@ -1,9 +1,8 @@
 package com.demandfarm.controller;
 
-import com.demandfarm.character.FavouriteCharacter;
 import com.demandfarm.character.House;
 import com.demandfarm.character.MyCharacter;
-import com.demandfarm.service.CharacterJsonMapper;
+import com.demandfarm.character.ToUpdateData;
 import com.demandfarm.service.CharacterService;
 import com.demandfarm.service.DataPersisterFromJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/characters")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*", methods = {RequestMethod.PUT,RequestMethod.GET})
 public class CharacterController {
 
     private CharacterService characterService;
@@ -52,14 +51,13 @@ public class CharacterController {
         characterService.persistDataFromJsonToDB();
     }
 
-    @PutMapping("/favouriteCharacter")
-    public FavouriteCharacter markCharacterAsFavourite(@RequestBody FavouriteCharacter favouriteCharacter){
-        return characterService.markAsFavouriteCharacter(favouriteCharacter);
+    @PutMapping("/favourite/{characterId}")
+    public void markAsFavouriteOrUnfavourite(@PathVariable Long characterId, @RequestBody ToUpdateData toUpdateData ){
+        characterService.markAsFavouriteOrUnfavourite(toUpdateData, characterId);
     }
 
-    @DeleteMapping("/favouriteCharacter/{favouriteCharacterId}")
-    public void markCharacterAsNotFavourite(@PathVariable Long favouriteCharacterId){
-         characterService.deleteFavouriteCharacter(favouriteCharacterId);
+    @GetMapping("/favourite")
+    public List<MyCharacter> getFavouriteCharacters(Boolean status){
+        return characterService.getFavouriteCharacters(status);
     }
-
 }
