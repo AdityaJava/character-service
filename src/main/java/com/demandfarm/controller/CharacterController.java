@@ -57,7 +57,7 @@ public class CharacterController {
     }
 
     @GetMapping("/favourite")
-    public List<MyCharacter> getFavouriteCharacters(Boolean status){
-        return characterService.getFavouriteCharacters(status);
+    public Page<MyCharacter> getFavouriteCharacters(Pageable pageable){
+        return characterService.getFavouriteCharacters(pageable);
     }
 }

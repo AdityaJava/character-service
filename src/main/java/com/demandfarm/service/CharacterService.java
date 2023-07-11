@@ -63,7 +63,7 @@ public class CharacterService {
         }
     }
 
-    public List<MyCharacter> getFavouriteCharacters(Boolean status) {
-        return characterRepository.findByFavouriteCharacter(status);
+    public Page<MyCharacter> getFavouriteCharacters(Pageable pageable) {
+        return characterRepository.findByFavouriteCharacter(true, pageable);
     }
 }
