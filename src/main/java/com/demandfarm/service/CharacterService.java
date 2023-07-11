@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
 
@@ -32,6 +33,11 @@ public class CharacterService {
 
     public Page<MyCharacter> getCharacters(Pageable pageable) {
         return characterRepository.findAll(pageable);
+    }
+
+    @PostConstruct
+    public void storeOnLoad() throws IOException {
+        dataPersisterFromJson.persistCharacterToDB();
     }
 
     public void persistDataFromJsonToDB() throws IOException {
