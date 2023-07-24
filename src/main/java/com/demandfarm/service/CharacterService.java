@@ -1,5 +1,6 @@
 package com.demandfarm.service;
 
+import com.demandfarm.annotation.MyAnnotation;
 import com.demandfarm.character.House;
 import com.demandfarm.character.MyCharacter;
 import com.demandfarm.character.ToUpdateData;
@@ -31,6 +32,7 @@ public class CharacterService {
         this.houseRepository = houseRepository;
     }
 
+    @MyAnnotation
     public Page<MyCharacter> getCharacters(Pageable pageable) {
         return characterRepository.findAll(pageable);
     }
